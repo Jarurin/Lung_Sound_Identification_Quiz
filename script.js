@@ -55,7 +55,7 @@ function stopAudio() {
   player.load();
 }
 function showAudioError(path) {
-  $("listenStatus").textContent = "เล่นเสียงไม่ได้ กรุณาตรวจสอบไฟล์ " + path;
+  $("feedback").textContent = "เล่นเสียงไม่ได้ กรุณาตรวจสอบไฟล์ " + path;
 }
 function playCurrentSound(side) {
   const key = questions[index];
@@ -73,7 +73,6 @@ function playCurrentSound(side) {
   document.querySelectorAll(".lung-zone").forEach(path => {
     path.classList.toggle("active", path.dataset.side === side);
   });
-  $("listenStatus").textContent = "กำลังเล่นเสียงวนซ้ำ: " + sideLabel(side) + " · " + sound.name;
 }
 function sideLabel(side) {
   return side === "left" ? "ปอดซ้ายของภาพ" : "ปอดขวาของภาพ";
@@ -84,7 +83,6 @@ function renderQuestion() {
   $("qLabel").textContent = `ข้อ ${index + 1} จาก 5`;
   $("bar").style.width = `${index / 5 * 100}%`;
   $("feedback").textContent = "";
-  $("listenStatus").textContent = `พร้อมฟังเสียงของข้อ ${index + 1}`;
   $("lungArea").querySelectorAll(".lung-zone").forEach(p => p.classList.remove("active"));
   $("options").replaceChildren();
 
@@ -168,13 +166,6 @@ function submitQuiz() {
     addText(article, "h3", `ข้อ ${i + 1}: ${sound.name}`);
     addText(article, "p", correct ? "ผลการตอบ: ถูกต้อง" : `ผลการตอบ: ยังไม่ถูกต้อง · คำตอบของคุณคือ ${SOUNDS[answers[i]].name}`, "answer-status");
     addText(article, "p", "ลักษณะเสียง: " + sound.desc);
-    addText(article, "h4", "ฟังเสียงตัวอย่าง");
-    const audio = document.createElement("audio");
-    audio.controls = true;
-    audio.preload = "metadata";
-    audio.src = sound.audio;
-    audio.loop = false;
-    article.appendChild(audio);
     addText(article, "h4", "วิดีโอทบทวน");
     const video = document.createElement("video");
     video.controls = true;
@@ -205,11 +196,6 @@ function init() {
         playCurrentSound(path.dataset.side);
       }
     });
-  });
-  $("stopAudio").addEventListener("click", () => {
-    stopAudio();
-    $("listenStatus").textContent = "หยุดเล่นเสียงแล้ว";
-    document.querySelectorAll(".lung-zone").forEach(p => p.classList.remove("active"));
   });
   $("prev").addEventListener("click", () => {
     if (index > 0) { index--; renderQuestion(); }
