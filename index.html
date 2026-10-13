@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lung Sound Identification Quiz</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="logo" aria-hidden="true">🫁</div>
+  <div class="brand">
+    <p class="eyebrow">NURSING AUDIO LEARNING</p>
+    <h1>Lung Sound Identification Quiz</h1>
+    <p class="subtitle">ฟังเสียงปอด · ระบุชนิดเสียง · ทบทวนพร้อมวิดีโอ</p>
+  </div>
+</header>
+<main>
+  <section id="quizPage" class="layout">
+    <section class="card quiz-card">
+      <div class="between">
+        <span class="pill">แบบทดสอบ</span>
+        <span id="qLabel" class="pill pale">ข้อ 1 จาก 5</span>
+      </div>
+      <div class="progress-track"><div id="bar"></div></div>
+      <h2>เสียงที่ได้ยินเป็นเสียงปอดชนิดใด?</h2>
+      <p class="muted">คลิกบริเวณปอดซ้ายหรือขวาเพื่อฟังเสียง เสียงของทั้งสองฝั่งในข้อนี้เป็นเสียงเดียวกัน และจะเล่นวนซ้ำจนกว่าจะเปลี่ยนข้อหรือหยุดเสียง</p>
+
+      <div class="lung" id="lungArea">
+        <img src="./lung.png" alt="ภาพปอดทั้งสองข้าง" id="lungImage">
+        <svg class="lung-map" viewBox="0 0 463 418" preserveAspectRatio="none" role="group" aria-label="พื้นที่คลิกปอดซ้ายและขวา">
+          <path class="lung-zone left-zone" tabindex="0" role="button" aria-label="คลิกฟังเสียงปอดฝั่งซ้าย" data-side="left" d="M 185 37 L 164 35 L 141 45 L 124 62 L 103 93 L 90 117 L 62 185 L 55 206 L 52 231 L 50 233 L 48 310 L 53 359 L 55 365 L 64 372 L 80 372 L 88 369 L 113 367 L 177 351 L 196 343 L 206 333 L 211 324 L 210 304 L 205 287 L 205 248 L 207 236 L 219 212 L 221 190 L 223 187 L 224 156 L 218 131 L 211 121 L 213 111 L 213 95 L 211 92 L 213 88 L 208 62 L 200 45 Z"></path>
+          <path class="lung-zone right-zone" tabindex="0" role="button" aria-label="คลิกฟังเสียงปอดฝั่งขวา" data-side="right" d="M 284 37 L 271 50 L 265 67 L 263 99 L 260 103 L 262 108 L 260 113 L 262 125 L 252 175 L 253 207 L 259 223 L 260 329 L 263 337 L 273 347 L 298 356 L 368 357 L 387 360 L 391 363 L 403 363 L 412 353 L 418 334 L 418 228 L 407 191 L 404 187 L 402 174 L 351 73 L 342 60 L 327 45 L 305 36 Z"></path>
+        </svg>
+        <div class="lung-hint">คลิกพื้นที่ปอดซ้ายหรือขวา</div>
+      </div>
+
+      <div class="listen-row">
+        <span id="listenStatus" aria-live="polite">พร้อมฟังเสียงของข้อ 1</span>
+        <button type="button" id="stopAudio" class="secondary small-button">หยุดเสียง</button>
+      </div>
+      <div class="audio-engine"><audio id="player" preload="metadata"></audio></div>
+
+      <h3 class="question-title">เลือกคำตอบ 1 ข้อ</h3>
+      <div id="options" class="options" aria-label="ตัวเลือกคำตอบ"></div>
+      <div id="feedback" aria-live="polite"></div>
+
+      <div class="actions">
+        <button type="button" id="prev" class="secondary">← ข้อก่อนหน้า</button>
+        <button type="button" id="next">ถัดไป →</button>
+        <button type="button" id="submit" class="submit hidden">ส่งคำตอบทั้งหมด</button>
+      </div>
+      <p class="tiny">สามารถย้อนกลับมาเปลี่ยนคำตอบได้ก่อนกดส่งคำตอบ</p>
+    </section>
+
+    <aside class="sidebar">
+      <section class="card dark">
+        <p class="eyebrow">YOUR PROGRESS</p>
+        <h2>ความคืบหน้า</h2>
+        <div class="score"><span id="answered">0</span><small>/ 5 ตอบแล้ว</small></div>
+        <div id="dots" class="dots"></div>
+        <p class="tiny">แบบทดสอบสุ่มลำดับเสียง 5 ชนิด ตอบให้ครบก่อนส่งคำตอบ</p>
+      </section>
+      <section class="card instructions">
+        <h3>วิธีทำแบบทดสอบ</h3>
+        <ol>
+          <li>คลิกบริเวณปอดซ้ายหรือขวาเพื่อฟังเสียง</li>
+          <li>เสียงทั้งสองฝั่งเป็นเสียงเดียวกันในแต่ละข้อ</li>
+          <li>เลือกชนิดเสียงที่ได้ยิน</li>
+          <li>ย้อนกลับมาแก้คำตอบได้</li>
+          <li>ตอบครบ 5 ข้อแล้วกดส่งคำตอบ</li>
+        </ol>
+      </section>
+    </aside>
+  </section>
+
+  <section id="results" class="results hidden">
+    <div class="card result-summary">
+      <div class="trophy">🏆</div>
+      <h2>สรุปผลแบบทดสอบ</h2>
+      <div class="final"><span id="finalScore">0</span><small>/ 5 คะแนน</small></div>
+      <p id="finalText"></p>
+      <button type="button" id="retry">ทำแบบทดสอบอีกครั้ง</button>
+    </div>
+    <h2 class="review-heading">เฉลยและทบทวนเสียงทั้ง 5 ข้อ</h2>
+    <p class="muted">แต่ละข้อมีคำอธิบายลักษณะเสียง พร้อมเครื่องเล่นเสียงและวิดีโอทบทวน</p>
+    <div id="reviews"></div>
+  </section>
+</main>
+<footer>สื่อฝึกการฟังเสียงสำหรับนักศึกษาพยาบาล ไม่ใช้แทนการประเมินผู้ป่วยจริง</footer>
+<script src="./script.js"></script>
+</body>
+</html>
