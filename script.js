@@ -166,7 +166,7 @@ function submitQuiz() {
     addText(article, "h3", `ข้อ ${i + 1}: ${sound.name}`);
     addText(article, "p", correct ? "ผลการตอบ: ถูกต้อง" : `ผลการตอบ: ยังไม่ถูกต้อง · คำตอบของคุณคือ ${SOUNDS[answers[i]].name}`, "answer-status");
     addText(article, "p", "ลักษณะเสียง: " + sound.desc);
-    addText(article, "h4", "วิดีโอทบทวน");
+    addText(article, "h4", "หลักการจำ");
     const video = document.createElement("video");
     video.controls = true;
     video.playsInline = true;
